@@ -14,15 +14,15 @@ def deploy():
     env.user = 'xxx'
     env.key_filename = '%s/_deploy/flowershop/id_rsa' % PROJECTS_ROOT
     #env.password = ''
-    with cd('/home/usr-alex/data/django-apps/vest'):
+    with cd('/home/xxx/data/django-apps/vest'):
         run('git pull')
 
     code_dir = '/home/xxx/data/django-apps/flowershop/'
     with cd(code_dir):
-        run('source /home/usr-alex/data/django15/bin/activate;cd /home/usr-alex/data/django-apps/flowershop; python manage.py migrate frontend')
+        run('source /home/xxx/data/django16/bin/activate;cd /home/xxx/data/django-apps/flowershop; python manage.py migrate frontend')
         run('git pull')
         run('chmod -R 777 media')
-        run('source /home/usr-alex/data/django15/bin/activate && python manage.py collectstatic --noinput ')
+        run('source /home/xxx/data/django16/bin/activate && python manage.py collectstatic --noinput ')
         run('touch reload')
 
 
