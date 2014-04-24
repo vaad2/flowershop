@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <!-- disable iPhone inital scale -->
+    <meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+    <title>{% block seo_title %}{% if request.vt_sps.0 %}{{ request.vt_sps.0.seo_title }}{% else %}Мирбукета{% endif %}{% endblock %}</title>
+    <meta content="{% block seo_keywords %}{% if request.vt_sps.0 %}{{ request.vt_sps.0.seo_keywords }}{% else %}Цветы{% endif %}{% endblock %}" name="keywords"/>
+    <meta content="{% block seo_description %}{% if request.vt_sps.0 %}{{ request.vt_sps.0.seo_description }}{% else %}Описание{% endif %}{% endblock %}" name="description"/>
+
+    <!-- main css -->
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+
+    <!-- media queries css -->
+    {#    <link href="/static//css/mq2.css" rel="stylesheet" type="text/css">#}
+
+    <script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+
+    <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
+    <!-- html5.js for IE less than 9 -->
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <!-- css3-mediaqueries.js for IE less than 9 -->
+    <!--[if lt IE 9]>
+	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
+
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans&subset=latin,latin-ext,cyrillic,cyrillic-ext'
+          rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="/static/css/style.css"/>
+
+    <link rel="stylesheet" href="/static/css/view_index.css"/>
+    <script type="text/javascript" src="/dynamic/js/urls.js"></script>
+    {#    <script type="text/javascript" src="/dynamic/js/base.js"></script>#}
+    <script type="text/javascript" src="/static/js/jquery.cycle2.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="/static/js/base.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.form.min.js"></script>
+
+    {% load tags_frontend tags_std %}
+    {% block scripts %}{% endblock %}
+
+
+</head>
+
+<body>
+
+<div class="base-wrapper">
+    <div class="pagewrap">
+
+        <header id="header">
+
+            <div>
+                <div>
+                    <h1 id="site-logo"><a href="/"><img src="/static/img/logo.png"></a></h1>
+                </div>
+                <div class="top-info">
+                    <div class="top-info-block ico-time">
+                        <div>Звоните каждый день с 09:00 до 24:00</div>
+                        <div class="light-orange text-right">Доставка круглосуточно!</div>
+                    </div>
+
+                    <div class="top-info-block ico-phone">
+                        <div>+7 (495) 233-86-69</div>
+                        <div>info@flowershop.ru</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <nav>
+                <ul id="main-nav" class="clearfix">
+                    {% tag_ctree_children_get var='ctx_cat_top' pk=1 %}
+                    {% for cat in ctx_cat_top %}
+                        <li><a {% if cat.active %}class="active" {% endif %} href="{{ cat.item.url_get }}">{{ cat.item.title }}</a></li>
+                    {% endfor %}
+                </ul>
+                <!-- /#main-nav -->
+            </nav>
+
+            <div style="position: absolute;bottom: 0;right: 0;z-index: 100;">
+                <form>
+                    <a href="{% url 'frontend:view_cart' %}" class="basket">
+                        <div class="basket-qty">{{ request.vt_basket.qty }}</div>
+
+                        <div class="basket-sum">
+                            товаров на сумму
+                            <div class="light-orange basket-sum-value"
+                                 style="padding-top: 4px;font-weight: bold;">{{ request.vt_basket.sum|price }} р.
+                            </div>
+                        </div>
+                    </a>
+
+                    {% if request.user.is_authenticated %}
+                        <div class="cabinet">
+                            <a href="{% url 'frontend:view_cabinet' %}">Личный кабинет</a> /
+                            <a href="{% url 'frontend:view_logout' %}">Выйти</a>
+                        </div>
+                    {% else %}
+                        <div class="cabinet">
+                            <a href="{% url 'frontend:view_auth' %}">Личный кабинет</a>
+                        </div>
+                    {% endif %}
+
+                    <input type="search" style="float: right;" class="search" value="{{ request.REQUEST.query }}"
+                           placeholder="Найти">
+
+                </form>
+
+            </div>
+
+        </header>
+        <!-- /#header -->
+    </div>
+
+    <div class="clearfix"></div>
+    <div style="background:#ffbb69;min-width:960px;height: 6px;margin: 16px 0px 26px 0px;"></div>
+    <div class="pagewrap">
+        <div class="content">
+            {% block breadcrumbs %}{% include 'frontend/inc_breadcrumbs.html' %}{% endblock %}
+
+            {% block title %}{% endblock %}
+
+            {% tag_simple_page 1 %}
+            {% block content %}{% block content_main %}{% endblock %}{% endblock %}
+
+            {% tag_simple_page 2 %}
+
+            {% block content_bottom %}{% endblock %}
+            <!-- /.post -->
+
+        </div>
+        <!-- /.content -->
+
+
+    </div>
+    <aside class="sidebar">
+        {% tag_ctree_children_get var='ctx_cat_left' pk=15 %}
+
+        {% for cat in ctx_cat_left %}
+            {% if cat.open %}
+                <section class="widget">
+                <h3 class="widgettitle"
+                    {% if cat.item.image %}style="background-image: url('{{ cat.item.image.url }}')" {% endif %}><a
+                        href="{{ cat.item.url_get }}">{{ cat.item.title }}</a></h3>
+                <ul>
+            {% else %}
+                <li><a href="{{ cat.item.url_get }}" {% if cat.active %}class="active"{% endif %}>{{ cat.item.title }}</a></li>
+
+            {% endif %}
+        {% if cat.close %}
+            </ul>
+            </section>
+        {% endif %}
+
+        {% endfor %}
+        <!-- /.widget -->
+
+
+    </aside>
+    <!-- /.sidebar -->
+
+    <!-- /#pagewrap -->
+    <div class="clearfix"></div>
+    <div style="background:#e1e1e1;height: 10px;margin: 30px 0px 10px"></div>
+
+    <div class="pagewrap">
+        <div class="content">
+        {% tag_ctree_children_get var='ctx_cat_bottom' pk=15 %}
+            {% for cat in ctx_cat_bottom %}
+                {% if cat.open %}
+                    <div class="block-25-pc">
+                    <div>
+                        <div class="round-icon" {% if cat.item.image %}style="background-image: url('{{ cat.item.image.url }}')" {% endif %}></div>
+                        <h3><a href="{{ cat.item.url_get }}">{{ cat.item.title }}</a></h3>
+                    </div>
+
+                    <section class="widget">
+                    <ul>
+                {% else %}
+                    <li><a href="{{ cat.item.url_get }}">{{ cat.item.title }}</a></li>
+
+                {% endif %}
+            {% if cat.close %}
+                </ul>
+                </section>
+                </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+
+    </div>
+    <aside class="sidebar">
+        <a href="/"><img src="/static/img/logo.png"></a>
+
+
+        <div class="bottom-info-block ico-phone">
+            <div>+7 (495) 233-86-69</div>
+            <div>info@flowershop.ru</div>
+        </div>
+        <div class="bottom-info-block ico-time">
+            <div>Звоните каждый день <br/>с 09:00 до 24:00</div>
+
+            <div style="margin-top: 10px;" class="light-orange">Доставка <br/> круглосуточно!</div>
+        </div>
+        <div class="bottom-info-block" style="font-size: 16px;margin-top: 52px;">&copy; 2008-2014 &laquo;Мир
+            букета&raquo;</div>
+    </aside>
+</div>
+
+<div class="popup popup-cart" style="height: 140px;width: 300px;background: #fff;">
+    <div class="basket popup-content">
+        <div class="basket-qty">{{ request.vt_basket.qty }}</div>
+        Товар добавлен в корзину
+    </div>
+</div>
+
+<div class="popup popup-fast-order">
+    <a href="javascript:void(0);" class="btn-popup-close popup-close"></a>
+
+    <div class="popup-fast-order-content popup-content">
+
+    </div>
+</div>
+{#  {% include 'inc_counter_ya.html' %}#}
+{#  {% include 'inc_counter_google.html' %}#}
+</body>
+</html>

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load thumbnail tags_std %}
+{% block scripts %}
+    <link rel="stylesheet" href="/static/css/jquery.bxslider.css"/>
+
+    <script type="text/javascript" src="/static/js/jquery.bxslider.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.bxslider').bxSlider();
+
+        })
+    </script>
+{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content_main %}
+    <ul class="bxslider">
+        {% for si in slider.sliderimage_set.all %}
+            {#            {% thumbnail si.image '1091x200' watermark="watermark.png" watermark_pos="center" as im %}#}
+            {% thumbnail si.image '1691x300' crop="center" as im %}                                                   {#            {% thumbnail si.image '1091x200' watermark="watermark.png" watermark_pos="center" as im %}#}
+                <li><a href="{{ si.url }}"><img src="{{ im.url }}"/></a></li>
+
+            {% endthumbnail %}
+
+        {% endfor %}
+    </ul>
+
+
+    <h3 class="bottom-m-8">Доставка цветов по Москве</h3>
+    <div class="text">
+        Цветы – немаловажный атрибут нашей жизни, позволяющий выразить всю нежность, любовь, уважение, признательность…
+        Словом весь спектр человеческих чувств, которые порой сложно описать словами. Поэтому не удивительно, что из
+        века в век цветочные композиции и букеты дарят близким людям как по особым поводам, так и для того чтобы
+        напомнить о себе.
+
+        Чтобы порадовать близкого человека сегодня очень популярна услуга «Заказ цветов с доставкой» от
+        Интернет-магазина цветов «Ирис». Благодаря этому сервису вы можете не только выбрать роскошный букет или
+        заказать изготовление индивидуальной цветочной композиции, но и заказать доставку букетов по Москве курьером.
+
+    </div>
+
+
+    <h3 class="top-m-16 bottom-m-8">Служба доставки цветов</h3>
+    <div class="text">Мы доставляем заказ в удобное для вас время на дом, в офис, на праздник или свадьбу ежедневно с
+        9.00 до 22.00. Дарите цветы вашим близким вместе с нами! Мы доставляем заказ в удобное для вас время на дом, в
+        офис, на праздник или свадьбу ежедневно с 9.00 до 22.00. Дарите цветы вашим близким вместе с нами!
+    </div>
+
+    <h3 class="top-m-16 bottom-m-8">Самые популярные букеты:</h3>
+    <div class="product-list" style="margin-top: 10px;">
+        {% for product in products %}
+            {% include 'frontend/inc_product_item.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}
+    {% if news|length %}
+    <div class="clearfix"></div>
+    <h3 class="top-m-16">Новости:</h3>
+        <div class="text news-list news-list-index">
+            {% for item in news %}
+                {% include 'frontend/inc_news_item.html' %}
+            {% endfor %}
+        </div>
+    <div class="clearfix"></div>
+    <h3 style="text-align: right;"><a style="color:#F7941D;" href="{% url 'frontend:view_news' %}">Все новости</a></h3>
+    {% endif %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load tags_frontend %}
+{% block scripts %}
+    <script type="text/javascript">
+        function handle_update(result) {
+            if (result['success']) {
+                if (result['data'] === true) {
+                    $('.form-cabinet .errorlist').remove();
+
+                    {#                    document.location.assign('{% url 'frontend:view_cabinet' %}');#}
+                }
+                else {
+                    $('.form-cabinet').html(result['data']);
+                    $('.btn-send-update').click(function () {
+                        post(g_urls['view_link']['frontend:ViewCabinet'], $('.form-cabinet').serialize(), handle_update);
+                        return false;
+                    });
+                }
+            }
+        }
+
+        $(function () {
+            $.get(g_urls['view_link']['frontend:ViewCabinet'], handle_update);
+
+
+        });
+    </script>
+{% endblock %}
+
+{% block content_main %}
+    <div class="h1-title">Кабинет</div>
+    <div class="text">Здесь вы можете поменять свои данные</div>
+    <form class="form form-cabinet" method="post"></form>
+    <div class="hr"></div>
+    <div class="h1-title">История заказов</div>
+    <table class="tbl-orders">
+        <tr>
+            <th class="tc-link">Номер заказа</th>
+            <th>Время заказа</th>
+            <th>Кол-во</th>
+            <th>Сумма</th>
+
+        </tr>
+        {% for shop_order in shop_orders %}
+            <tr>
+                <td class="tc-link"><a href="{% url 'frontend:view_order' order_pk=shop_order.pk %}">{{ shop_order.pk }}</a></td>
+                <td class="tc-date">{{ shop_order.since|date:'d.m.Y H:i' }}</td>
+                <td class="tc-qty">{{ shop_order.qty }}</td>
+                <td class="tc-sum">{{ shop_order.sum|price }} р.</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

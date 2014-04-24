@@ -1,0 +1,26 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% block breadcrumbs %}
+    <ul>
+        <li><a href="/admin/">{% trans 'Home' %}</a></li>
+        {% if title %}
+            <li>{{ title }}</li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="grp-module">
+        {% if success %}
+            <div class="grp-row"><h3>{{ success }}</h3></div>
+        {% endif %}
+
+        <div class="grp-row">
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" value="Пуск!" class="btn">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

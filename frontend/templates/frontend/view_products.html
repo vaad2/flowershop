@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load thumbnail tags_frontend %}
+
+{% block scripts %}
+    <link rel="stylesheet" href="/static/css/view_products.css"/>
+    <link rel="stylesheet" href="/static/css/jquery.nouislider.css"/>
+    <script type="text/javascript" src="/static/js/jquery.nouislider.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var rftm = null;
+
+            $('.slider').noUiSlider({
+                range: [{{ price_min|price }}, {{ price_max|price }}], start: [{{ filter_params.price_from }}, {{ filter_params.price_to }}], connect: true,
+                set: function () {
+                    clearTimeout(rftm);
+                    var val = $(this).val();
+
+                    rftm = setTimeout(function () {
+                        {% tag_paginator_params paginator exclude='price_from,price_to' var_name='vt_slider_url' %}
+                        document.location.assign('?' + '{{ vt_slider_url|safe }}' + '&' + 'price_from=' + val[0] + '&price_to=' + val[1]);
+                    }, 2000);
+                    console.log($(this).val());
+                },
+                slide: function(){
+                  clearTimeout(rftm);
+                },
+                serialization: {
+                    resolution: 1,
+                    to: [
+                        [ $('.price-min'), 'html'],
+                        [ $('.price-max'), 'html']
+                    ]
+                }
+
+            });
+        })
+    </script>
+{% endblock %}
+{% block title %}<h1 class="title">Каталог</h1>{% endblock %}
+{% block content_main %}
+
+    <div class="top-controls">
+        <div class="block-filters">
+            <div class="color-orange">Цена букета: <b class="price-min">{{ price_min|price }}</b> р. - <b
+                    class="price-max">{{ price_max|price }}</b> р.
+            </div>
+            <div class="slider"></div>
+
+        </div>
+        <div class="block-sorts">
+            <div class="color-orange" style="padding-right: 305px;padding-bottom:18px;text-align: right;">Сортировка:
+            </div>
+            <div class="block-sorts-links {{ order_params.sort }}-{{ order_params.order }}">
+                {% tag_paginator_params paginator exclude='sort' %}
+                <a href=".?sort=price&switch=1&{{ vt_paginator_url }}"><span>Стоимость</span>
+
+                    <div class="triangle price-asc"></div>
+                    <div class="triangle-down price-desc"></div>
+                </a>
+                <a href=".?sort=title&switch=1&{{ vt_paginator_url }}"><span>Название</span>
+
+                    <div class="triangle title-asc"></div>
+                    <div class="triangle-down title-desc"></div>
+                </a>
+                <a href=".?sort=popular&switch=1&{{ vt_paginator_url }}"><span>Популярность</span>
+
+                    <div class="triangle popular-asc"></div>
+                    <div class="triangle-down popular-desc"></div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    {% include 'frontend/inc_paginator.html' %}
+    <div class="product-list">
+        {% for product in products %}
+            {% include 'frontend/inc_product_item.html' %}
+        {% endfor %}
+    </div>
+    {% include 'frontend/inc_paginator.html' %}
+    <div class="clearfix"></div>
+{% endblock %}

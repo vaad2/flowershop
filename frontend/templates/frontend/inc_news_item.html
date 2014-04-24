@@ -1,0 +1,15 @@
+{% load thumbnail %}
+<div class="news-item top-m-16">
+    <a class="news-item-title" href="{% url 'frontend:view_news_item' slug=item.slug %}">
+        {% thumbnail item.image '96x96' crop="center top" as im %}
+            <img
+                    title="{{ item.title }}" alt="{{ item.title }}" src="{{ im.url }}"
+                    class="news-item-img">
+        {% endthumbnail %}
+    </a>
+    <a class="news-item-title"
+       href="{% url 'frontend:view_news_item' slug=item.slug %}">{{ item.date_time|date:'d.m.Y' }}
+        / {{ item.title }}</a>
+
+    <div class="news-item-preview">{{ item.content_preview|striptags }}</div>
+</div>

@@ -1,0 +1,106 @@
+.cart-list {
+    width: 80%;
+}
+.cart-list .img {
+    width: 90px;
+    height: 90px;
+    background: 50% 50% no-repeat;
+    border: 1px solid #d9d9d9;
+    margin: 1px;
+    padding: 1px;
+}
+
+
+.cart-list td, .cart-list th{
+    text-align: left;
+    color:#f7941d;
+    font-size: 14px;
+    vertical-align: top;
+    padding: 2px;
+}
+
+.cart-list th {
+    color: #008f46;
+    font-size: 14px;
+    font-family: Arial;
+    font-weight: normal;
+}
+
+.hd-image {
+    width: 90px;
+}
+
+.hd-name {
+
+}
+
+.cart-list th.hd-price {
+    width: 90px;
+    text-align: center;
+}
+
+.hd-qty {
+    width: 90px;
+}
+
+.hd-del {
+    width: 1%;
+}
+.cart-list th.hd-sum {
+    width: 60px;
+    text-align: center;
+}
+
+input[type="text"].input-qty {
+    width: 40px;
+    color: #aaa;
+    height: 20px;
+    min-width: 40px;
+    border: 1px solid #f7941d;
+    border-radius: 0;
+    text-align: center;
+}
+
+.qty-up, .qty-dn {
+    float: right;
+    margin-top: 8px;
+
+}
+
+.btn-del {
+    background:url("/static/img/ico-del.png") 50% 50% no-repeat;
+    width: 18px;
+    height: 18px;
+    display: block;
+    margin-top: 4px;
+}
+
+td .price {
+    text-align: center;
+    background: #f7941d;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+.cart-list td.td-sum {
+    font-size: 18px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.form-client {
+    width: 100%;
+}
+.form-client input[type="text"], .form-client textarea {
+    width: 90%;
+    min-width: auto;
+}
+
+#id_field_city #id_city {
+}
+#id_field_city {
+    clear: both;
+}

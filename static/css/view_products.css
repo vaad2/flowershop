@@ -1,0 +1,85 @@
+.top-controls {
+    padding-top: 20px;
+    height: 80px;
+}
+
+.block-filters {
+    float: left;
+    width: 34%;
+}
+
+.block-sorts {
+    float: right;
+
+}
+
+.slider {
+    width: 96%;
+    margin-top: 20px;
+}
+
+.pagination {
+    width: auto;
+    margin: 0 auto;
+}
+
+.outerElement {
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: middle;
+    zoom: 1;
+    position: relative;
+    left: 50%;
+}
+
+.innerElement {
+    position: relative;
+    left: -50%;
+}
+
+
+.title-asc .title-asc, .price-asc .price-asc,
+.popular-asc .popular-asc {
+
+    border-color: transparent transparent #fb8800 transparent;
+}
+
+.title-desc .title-desc, .price-desc .price-desc, .popular-desc .popular-desc {
+    border-color: #f98800 transparent transparent transparent;
+
+}
+
+.block-sorts {
+    width: 64%;
+}
+
+.block-sorts-links {
+    white-space: nowrap;
+    width: 100%;
+}
+
+.block-sorts-links a {
+    font-size: 14px;
+    color: #008f46;
+    float: right;
+    white-space: nowrap;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.block-sorts-links a div {
+    float: right;
+
+}
+
+.block-sorts-links a span {
+    display: block;
+    float: left;
+    height: 12px;
+    padding-right: 10px;
+    line-height: 12px;
+    padding-right: 12px;
+
+}
+
+

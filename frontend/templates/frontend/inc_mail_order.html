@@ -1,0 +1,159 @@
+{% load tags_frontend %}
+<table cellpadding="0" cellspacing="0" width="100%" style="min-width: 640px;" align="center"
+       style="font-family:Arial;color:#705d25; font-size:18px;border-collapse:collapse;"
+       xmlns="http://www.w3.org/1999/html">
+    <tr>
+        <td>
+            <img src="{{ cid_logo }}">
+        </td>
+        <td style="min-width: 160px;white-space: nowrap;">
+            <table>
+                <tr>
+                    <td>
+                        <img src="{{ cid_phone }}" style="margin-top: -6px;margin-right: 10px;">
+                    </td>
+                    <td>
+                        <div style="float: left;font-size: 18px;font-family: Arial;color: #705d25">
+                            +7 (495) 233-86-69 <br/>
+                           
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="white-space: nowrap;">
+            <table>
+                <tr>
+                    <td>
+                        <img src="{{ cid_time }}" style="margin-top: -6px;margin-right: 10px;">
+                    </td>
+                    <td>
+                        <div style="float: left;font-size: 18px;font-family: Arial;color: #705d25;">
+                            Рады Вас слышать каждый день с 09:00 до 24:00
+
+                            <div style="font-size: 18px;font-family: Arial;color: #f7941d;text-align: right;">
+                                Доставка круглосуточно!
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div style="background: #ffbb69;height: 8px;width: 100%;"></div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div style="font-size: 22px;font-family: Arial;color: #f7941d;padding-top: 10px;">
+                Благодарим за покупку!
+
+            </div>
+        </td>
+    </tr>
+</table>
+<table cellpadding="0" cellspacing="0" width="100%" align="center" style="border-collapse:collapse;"
+       xmlns="http://www.w3.org/1999/html">
+
+    <tr>
+        <td style="vertical-align: top;text-align: left;">
+            <div style="font-size: 22px;font-family: Arial;color: #f7941d;padding-top: 10px;">
+                Ваш заказ
+                <span style="color: #008f46;">№{{ order.pk }}</span>:
+            </div>
+
+            {% for item in items %}
+                <div>
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 90px;vertical-align: top;">
+
+                                <img style="margin: 1px;padding: 1px;border: 1px solid #ccc;" src="{{ item.cid }}">
+                            </td>
+                            <td style="vertical-align: top;">
+                                <div style="font-size: 22px;font-family: Arial;color: #f7941d;">{{ item.title }}</div>
+                                <div style="font-size: 14px;font-family: Arial;color: #f7941d;">Кол-во:{{ item.qty }}
+                                    шт.
+                                </div>
+                                <div style="margin-top:14px;">
+                                    <span style="font-size: 22px;font-family: Arial;padding:4px 12px;color: #fff; background: #f7941d;">{{ item.sum|price }} р.</span>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            {% endfor %}
+
+        </td>
+        <td style="vertical-align: top;text-align: left;">
+            <div style="font-size: 22px;font-family: Arial;color: #f7941d;padding-top: 10px;">Заказчик</div>
+            <div style="color: #999;"><span style="color: #888;font-weight: bold;">Имя:</span> {{ order.client_name }}
+            </div>
+            <div style="color: #999;"><span
+                    style="color: #888;font-weight: bold;">Телефон:</span> {{ order.client_phone }}</div>
+            <div style="color: #999;"><span
+                    style="color: #888;font-weight: bold;">E-Mail:</span> {{ order.client_email }}</div>
+            <div style="color: #999;"><span
+                    style="color: #888;font-weight: bold;">Комментарий:</span> {{ order.client_comment }}</div>
+
+            <div style="color: #999;"><span
+                    style="color: #888;font-weight: bold;">Тип оплаты:</span> {{ order.delivery_type.title|default:'' }}
+            </div>
+
+        </td>
+
+        <td style="vertical-align: top;text-align: left;">
+
+            <div style="font-size: 22px;font-family: Arial;color: #f7941d;padding-top: 10px;">Получатель:</div>
+            <div style="color: #999;"><span style="color: #888;font-weight: bold;">Имя:</span>{{ order.receiver_name }}
+            </div>
+            <div style="color: #999;"><span style="color: #888;font-weight: bold;">Адрес:</span>
+                {% if order.city.pk == 3 %}{{ order.another_city }} {% else %}
+                    {{ order.city.title }}{% endif %}
+                <div>{{ order.receiver_address }}</div>
+            </div>
+            <div style="color: #999;"><span
+                    style="color: #888;font-weight: bold;">Дата и время доставки:</span>{{ order.receiver_date_time|default:'' }}
+            </div>
+            <div style="color: #999;"><span
+                    style="color: #888;font-weight: bold;">Тип доставки:</span> {{ order.delivery_type.title|default:'' }}
+            </div>
+            <div style="color: #999;"><span
+                    style="color: #888;font-weight: bold;">Комментарий:</span> {{ order.receiver_comment }}</div>
+
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div style="font-size: 18px;font-family: Arial;color: #f7941d;text-align: right;">
+                Доставка: <span style="font-weight: bold;">{{ order.delivery_sum|price }} р.</span>
+            </div>
+            <div style="font-size: 18px;font-family: Arial;color: #f7941d;text-align: right;">
+                Итого: <span style="font-weight: bold;">{{ order.summary|price }} р.</span>
+
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div style="background: #ccc;height: 12px;width: 100%;"></div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div style="padding-top:18px;font-size: 18px;font-family: Arial;color: #f7941d;font-style: italic;">
+                С уважением, администрация магазина «Мир Букета.ру» <br/>
+                <a style="text-decoration:none;font-size: 18px;font-family: Arial;color: #f7941d;font-style: italic;"
+                   href="http://www.flowershop.ru"> www.flowershop.ru</a>
+            </div>
+        </td>
+    </tr>
+
+</table>

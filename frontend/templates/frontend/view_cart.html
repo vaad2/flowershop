@@ -1,0 +1,326 @@
+{% extends 'base.html' %}
+{% load thumbnail tags_frontend %}
+{% block scripts %}
+    <link rel="stylesheet" href="/static/css/view_cart.css"/>
+    <link rel="stylesheet" href="/static/css/jquery.datetimepicker.css"/>
+    <script type="text/javascript" src="/static/js/jquery.datetimepicker.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#id_receiver_date_time').datetimepicker({
+                format: 'Y-m-d H:i',
+                lang: 'ru'
+            });
+
+            function _recalc(handler) {
+                var data = [];
+
+                $('.cart-list .input-qty').each(function () {
+                    var jq_self = $(this);
+                    data.push({pk: jq_self.closest('tr').data('pk'), pk_variant:jq_self.closest('tr').data('pk_variant'), qty: jq_self.val()});
+                })
+
+                $.post('{% url 'frontend:view_cart' %}', {cmd: 'update', data: JSON.stringify(data)}, function (result) {
+                    if (result['success']) {
+                        $.each(result['data']['products'], function () {
+                            var jq_tr = $('#id_product_' + this.pk + '_' + this.pk_variant);
+                            jq_tr.find('.input-qty').val(this.qty);
+                            jq_tr.find('.product-sum').html(this.price_sum);
+
+
+                        })
+                        basket_update(result);
+
+                        if (handler) handler(result);
+                    }
+                });
+
+            }
+
+            var ktm = null;
+
+            $('.btn-del').click(function () {
+                var jq_self = $(this);
+                jq_self.closest('tr').find('.input-qty').val(0);
+
+                _recalc(function () {
+                    jq_self.closest('tr').remove();
+
+                });
+
+            })
+
+            $('.input-qty').keyup(function () {
+                var jq_self = $(this);
+
+                clearTimeout(ktm);
+
+                ktm = setTimeout(function () {
+                    var val = parseInt(jq_self.val());
+                    if (!$.isNumeric(val)) val = 1;
+                    if (val < 1) val = 1;
+
+                    jq_self.val(val);
+
+                    _recalc();
+
+
+                }, 1000);
+            })
+
+            $('.qty-up, .qty-dn').click(function () {
+                var jq_self = $(this);
+                var jq_inp = jq_self.closest('td').find('.input-qty');
+
+                var curr_val = parseInt(jq_inp.val()) + (jq_self.hasClass('qty-up') ? 1 : -1);
+                if (curr_val < 1) curr_val = 1;
+                jq_inp.val(curr_val);
+
+                _recalc();
+
+            })
+
+            var tmd = null;
+            $('.dgi-km').keyup(function () {
+                clearTimeout(tmd);
+                setTimeout(function () {
+                    _recalc();
+                }, 1000);
+
+            })
+
+            function _recalc_delivery() {
+                var data = $('.form-delivery').serializeObject({
+                    cmd: 'delivery_recalc'
+                });
+
+                $.post('/cart/', data, function (result) {
+                    if (result['success']) {
+                        $('.summary-value').html(result['data']);
+                    }
+                })
+
+
+                _update_select_city();
+
+            }
+
+            function _update_select_city() {
+                if ($('.form-delivery #id_city').val() == 3) {
+                    $('.form-delivery .another-city').show();
+                }
+                else {
+                    $('.form-delivery .another-city').hide();
+                }
+            }
+
+            $('.form-delivery select').change(_recalc_delivery);
+            $('.form-delivery input[type="radio"]').click(_recalc_delivery);
+
+            var dst_tm = null;
+
+            $('.form-delivery input[name="distance"], .form-delivery input[name="another_city"]').keyup(function () {
+                clearTimeout(dst_tm);
+                dst_tm = setTimeout(_recalc_delivery, 1000);
+            })
+
+            function _update_order_send() {
+                var bln = $('#id_client_email').val().match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/) && $('#id_client_phone').val().length;
+                $('.block-order').attr('class', bln ? 'block-order' : 'block-order disabled');
+                $('.btn-order-send').data('enabled', bln);
+            }
+
+            $('#id_client_phone, #id_client_email').keyup(_update_order_send);
+
+            _update_select_city();
+            _update_order_send();
+
+            $('.btn-order-send').click(function () {
+                if ($(this).data('enabled')) {
+                    var data = $('.form-client').serializeObject({
+                        cmd: 'order_send'
+                    });
+                    $.post('/cart/', data, function (result) {
+                        if (result['success'] && 'redirect' in result['data']) {
+                            document.location.assign(result['data']['redirect']);
+                        }
+                    });
+
+                }
+            })
+
+            $('.link-another-city').click(function () {
+                $('.form-delivery #id_city').val(3);
+                _update_select_city();
+            });
+
+            $('.input-payment-type').change(function () {
+                $.post('/cart/', {cmd: 'payment_type_set', pk: $(this).val()}, function (result) {
+                    if (result['success']) {
+                        $('.summary-value').html(result['data']);
+                    }
+                });
+            })
+        });
+    </script>
+{% endblock %}
+{% block title %}<h1 class="title">Корзина</h1>{% endblock %}
+{% block content_main %}
+    <table class="cart-list">
+        <tr>
+            <th class="hd-name" colspan="2">Название</th>
+            <th class="hd-price">Стоимость</th>
+            <th class="hd-qty">Количество</th>
+            <th class="hd-sum">Сумма</th>
+            <th class="hd-del">&nbsp;</th>
+        </tr>
+
+        {% for product in products.itervalues %}
+            {% for key, pv in product.variants.iteritems %}
+                <tr id="id_product_{{ product.pk }}_{{ key }}" data-pk="{{ product.pk }}" data-pk_variant="{{ key }}">
+                    <td style="width: 90px;">
+                        {% thumbnail product.images.0.image '90x90' as im %}
+                            <div class="img" style="background-image: url('{{ im.url }}') ">
+
+                            </div>
+                        {% endthumbnail %}
+                    </td>
+                    <td>{{ pv.title }}</td>
+                    <td>
+                        <div class="price">{{ pv.vpr|price }}</div>
+                    </td>
+                    <td>
+                        <input type="text" value="{{ pv.qty }}" class="input-qty">
+                        <a href="javascript:void(0);" class="triangle qty-up"></a>
+                        <a href="javascript:void(0);" class="triangle-down qty-dn"></a>
+                    </td>
+                    <td>
+                        <div class="product-sum price">{{ pv.sum|price }}</div>
+                    </td>
+                    <td><a href="javascript:void(0);" class="btn-del"></a></td>
+                </tr>
+            {% endfor %}
+
+        {% endfor %}
+        <tr>
+            <td colspan="5" style="text-align: right" class="td-sum">
+                <div class="hr"></div>
+                <div style="">
+                    <div class="dsc-block-next" {% if dt_next %}style="display: block;" {% endif %}>
+                        До скидки <span class="basket-pc-next">{{ pc_next|stringformat:'d' }}</span>%
+                        необходимо докупить на <span class="basket-dt-next">{{ dt_next|price }}</span> р.
+
+                    </div>
+                    <div class="dsc-block" {% if dsc %}style="display: block" {% endif %}>
+                        <div>Скидка: <span class="basket-dsc-pc">{{ pc_curr|stringformat:'d' }}</span>% <span
+                                class="basket-dsc">{{ dsc|price }}</span> р.
+                        </div>
+
+                    </div>
+                </div>
+                Сумма: <span class="basket-dsc-sum-value bold">{{ dsc_sum|price }}</span> р.
+            </td>
+        </tr>
+    </table>
+
+    <div class="cart-list">
+        <div style="padding-right: 30px">
+            <div class="h1-title">Доставка</div>
+            <form class="form-delivery">
+                <div class="error">{{ delivery_form.non_field_errors }}</div>
+                {% for field in delivery_form %}
+                    <div class="form-row">
+                        <div class="label {% if field.errors %}error{% endif %}">{{ field.label_tag|capfirst }}</div>
+                        <div {% if field.errors %}class="error"{% endif %}
+                             id="id_field_{{ field.name }}">
+
+                            {% if field.name == 'city' %}
+                                <div class="ex-field-city">
+                                    {{ field }}
+                                    <a href="javascript:void(0);" class="link-another-city">города нет в списке</a>
+                                </div>
+
+                                <div class="another-city">
+                                    Населенный пункт:&nbsp; <input type="text"
+                                                                   value="{{ request.vt_delivery_info.another_city }}"
+                                                                   name="another_city">
+                                    км от МКАД:&nbsp;<input type="text" class="input-distance"
+                                                            value="{{ request.vt_delivery_info.distance|safe }}"
+                                                            name="distance"
+                                        >
+                                </div>
+                            {% else %}
+
+                                {{ field }}
+
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </form>
+            <div class="hr"></div>
+            <div class="color-orange pull-right">Итого к оплате: <span class="summary-value"
+                                                                       data-summary="{{ summary|price }}">{{ summary|price }}</span>р
+            </div>
+
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="cart-list">
+        <form class="form-client">
+            <div style="padding-right: 30px">
+
+                <div class="error">{{ client_form.non_field_errors }}</div>
+
+                {% for field in client_form %}
+                    {% if field.name == 'client_name' %}
+                        <div class="pull-left" style="width: 50%;">
+                        <div class="h1-title">Заказчик</div>
+                    {% endif %}
+                {% if field.name == 'receiver_name' %}
+                    </div>
+                    <div class="pull-right" style="width: 50%;">
+                    <div class="h1-title">Получатель</div>
+                {% endif %}
+                    <div class="form-row">
+                        <div class="label {% if field.errors %}error{% endif %}">
+                            {{ field.label_tag|capfirst }}{% if field.field.required %}*{% endif %}</div>
+                        <div {% if field.errors %}class="error"{% endif %}
+                             id="id_field_{{ field.name }}">{{ field }}</div>
+                    </div>
+
+                {% endfor %}
+                </div>
+
+                <div class="h1-title">Оплата</div>
+                <ul>
+                    {% for pt in payment_types %}
+                        <li><input name="payment_type" class="input-payment-type" type="radio"
+                                   {% if pt.active %}checked="checked" {% endif %}
+                                   value="{{ pt.pk }}">{{ pt.title }}
+                            {% if pt.price > 0 %}{{ pt.price|price }} р.{% endif %}
+                            {% if pt.description %}
+                                <div class="text color-orange">{{ pt.description }}</div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+
+                <div class="clearfix hr"></div>
+                <div class="block-order disabled">
+
+                    <div class="text pull-right bottom-m-16 color-red text-err">
+                        Заполните телефон и Email
+                    </div>
+                    <div class="clearfix"></div>
+                    <a href="javascript:void(0);" class="btn btn-order-send pull-right">
+                        <span class="ico-confirm"></span>
+                        Оформить заказ</a>
+
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

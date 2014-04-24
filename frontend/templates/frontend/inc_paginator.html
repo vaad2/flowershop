@@ -1,0 +1,29 @@
+{% load tags_std tags_frontend %}
+{% if paginator.num_pages > 1 %}
+    <div class="clearfix"></div>
+    <div class="outerElement">
+    <div class="pagination innerElement">
+        {% if paginator.curr_page > 1 %}
+            <div><a href="?{{ paginator.name_offset }}=0{% if request.REQUEST.q|length %}&q={{ request.REQUEST.q }}{% endif %}&{{ paginator.params_urlencoded }}" class="nav-prev">&laquo;</a></div>
+        {% endif %}
+
+        {% for page in paginator.page_range %}
+            {% if page.is_splitter %}
+                <div>{{ page.splitter }}</div>
+            {% else %}
+                {% if paginator.curr_page == page.0 %}
+                    <div class="active-page"><a href="javascript:void(0);">{{ page.0 }}</a></div>
+                {% else %}
+                    <div><a href="?{{ paginator.name_offset }}={{ page.1 }}{% if request.REQUEST.q|length %}&q={{ request.REQUEST.q }}{% endif %}&{{ paginator.params_urlencoded }}">{{ page.0 }}</a></div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if paginator.curr_page < paginator.num_pages %}
+            <div><a href="?{{ paginator.name_offset }}={{ paginator.offset_last_page }}{% if request.REQUEST.q|length %}&q={{ request.REQUEST.q }}{% endif %}&{{ paginator.params_urlencoded }}" class="nav-prev">&raquo;</a></div>
+        {% endif %}
+
+    </div>
+    </div>
+    <div class="clearfix"></div>
+{% endif %}

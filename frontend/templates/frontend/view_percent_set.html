@@ -1,0 +1,31 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% block breadcrumbs %}
+    <ul>
+        <li><a href="/admin/">{% trans 'Home' %}</a></li>
+        <li><a href="{{ success_url }}">Список товаров</a> </li>
+        <li>Установить процент</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="grp-module">
+            <div class="grp-row"><h3>Установить % для {{ product_num }} позиций</h3></div>
+
+        <div class="grp-row">
+
+            <form method="post">
+
+                {% csrf_token %}
+                <table>
+                {{ form.as_table }}
+
+                </table>
+                <br/>
+                <input type="submit" value="установить" class="btn">
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

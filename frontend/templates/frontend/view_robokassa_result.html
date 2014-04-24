@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content_main %}
+    {% if success %}
+        <h2>Заказ № {{ inv_id }} успешно оплачен </h2>
+    {% else %}
+        <h2>Ошибка в оплате заказа № {{ inv_id }}</h2>
+    {% endif %}
+{% endblock %}

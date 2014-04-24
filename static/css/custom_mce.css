@@ -1,0 +1,9 @@
+.mce-btn button:hover {
+    border: 0
+}
+
+.mce-btn button.mce-open:hover {
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+}
+

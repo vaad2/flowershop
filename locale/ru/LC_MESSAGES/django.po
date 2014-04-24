@@ -1,0 +1,574 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-04 23:06+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: frontend/__init__.py:2
+msgid "frontend"
+msgstr "Основной модуль"
+
+#: frontend/__init__.py:3
+msgid "Frontend"
+msgstr "Основной модуль"
+
+#: frontend/__init__.py:4
+msgid "Users"
+msgstr "Пользователи"
+
+#: frontend/__init__.py:5
+msgid "users"
+msgstr "Пользователи"
+
+#: frontend/__init__.py:6
+msgid "auth"
+msgstr "авторизация"
+
+#: frontend/__init__.py:7
+msgid "Auth"
+msgstr "Авторизация"
+
+#: frontend/admin.py:39 frontend/admin.py:58 frontend/admin.py:160
+#: frontend/admin.py:226 frontend/models.py:169 frontend/models.py:206
+#: frontend/models.py:241
+msgid "image"
+msgstr "Картинка"
+
+#: frontend/admin.py:113
+msgid "set percent"
+msgstr "установить наценку"
+
+#: frontend/admin.py:148
+msgid "node view"
+msgstr ""
+
+#: frontend/admin.py:171
+msgid "link"
+msgstr "Ссылка"
+
+#: frontend/admin.py:266
+msgid "links"
+msgstr "Ссылки"
+
+#: frontend/admin.py:384
+msgid "recovery selected templates from files"
+msgstr "Восстановить выбранные шаблоны из файлов"
+
+#: frontend/admin.py:389
+msgid "reset all"
+msgstr "Выключить шаблоны"
+
+#: frontend/admin.py:395
+msgid "set all"
+msgstr "Включить шаблоны"
+
+#: frontend/ajax_views.py:28 frontend/ajax_views.py:61
+msgid "E-mail"
+msgstr ""
+
+#: frontend/ajax_views.py:29 frontend/ajax_views.py:62
+msgid "password"
+msgstr "Пароль"
+
+#: frontend/ajax_views.py:41
+msgid "wrong password or email"
+msgstr "Ошибка в пароле или E-Mail"
+
+#: frontend/ajax_views.py:44
+msgid "user not active"
+msgstr "Пользователь не активизирован"
+
+#: frontend/ajax_views.py:63
+msgid "password repeat"
+msgstr "Повтор пароля"
+
+#: frontend/ajax_views.py:64 frontend/ajax_views.py:102 frontend/models.py:254
+#: frontend/views.py:634
+msgid "username"
+msgstr "Имя"
+
+#: frontend/ajax_views.py:65 frontend/ajax_views.py:103 frontend/models.py:185
+#: frontend/models.py:255 frontend/models.py:264 frontend/views.py:635
+msgid "phone"
+msgstr "Телефон"
+
+#: frontend/ajax_views.py:74 frontend/views.py:654
+msgid "passwords not same"
+msgstr "Пароли не совпадают"
+
+#: frontend/ajax_views.py:77 frontend/views.py:657
+msgid "user with same email exist"
+msgstr "Пользователь с таким E-Mail уже создан"
+
+#: frontend/models.py:31 frontend/models.py:57 frontend/models.py:197
+msgid "category"
+msgstr "Категория"
+
+#: frontend/models.py:32
+msgid "categories"
+msgstr "Категории"
+
+#: frontend/models.py:38 frontend/models.py:58 frontend/models.py:149
+#: frontend/models.py:203 frontend/models.py:231 frontend/models.py:306
+#: frontend/models.py:324 frontend/models.py:337 frontend/models.py:350
+msgid "title"
+msgstr "Оглавление"
+
+#: frontend/models.py:44 frontend/models.py:268 frontend/models.py:398
+msgid "order status"
+msgstr "Статус заказа"
+
+#: frontend/models.py:45
+msgid "orders status"
+msgstr "Статусы заказов"
+
+#: frontend/models.py:60
+msgid "art"
+msgstr "артикул"
+
+#: frontend/models.py:62
+msgid "consists"
+msgstr "Состав"
+
+#: frontend/models.py:63
+msgid "weight"
+msgstr "Вес"
+
+#: frontend/models.py:64
+msgid "size"
+msgstr "Размер"
+
+#: frontend/models.py:66 frontend/models.py:150 frontend/models.py:309
+#: frontend/models.py:325 frontend/models.py:338 frontend/models.py:352
+msgid "price"
+msgstr "Цена"
+
+#: frontend/models.py:67
+msgid "price old"
+msgstr "Цена старая"
+
+#: frontend/models.py:69
+msgid "is promo"
+msgstr "Промо"
+
+#: frontend/models.py:70
+msgid "popular cnt"
+msgstr "Популярное (кол-во)"
+
+#: frontend/models.py:72 frontend/models.py:211
+msgid "content"
+msgstr "Содержание"
+
+#: frontend/models.py:73 frontend/models.py:212
+msgid "is content template"
+msgstr ""
+
+#: frontend/models.py:75 frontend/models.py:214 frontend/models.py:230
+msgid "slug"
+msgstr "Транслит"
+
+#: frontend/models.py:77
+msgid "product related"
+msgstr "С жтим товаром покупают"
+
+#: frontend/models.py:79
+#, fuzzy
+msgid "price stop"
+msgstr "Цена старая"
+
+#: frontend/models.py:81
+#, fuzzy
+msgid "seo title"
+msgstr "Оглавление"
+
+#: frontend/models.py:82
+msgid "seo keywords"
+msgstr ""
+
+#: frontend/models.py:83
+#, fuzzy
+msgid "seo description"
+msgstr "Описание"
+
+#: frontend/models.py:132
+msgid "product with same slug exists"
+msgstr "Товар с таким же транслит уже существует"
+
+#: frontend/models.py:144 frontend/models.py:148 frontend/models.py:266
+#: frontend/models.py:409 frontend/models.py:434
+msgid "product"
+msgstr "Товар"
+
+#: frontend/models.py:145
+msgid "products"
+msgstr "Товары"
+
+#: frontend/models.py:163 frontend/models.py:411
+msgid "product variant"
+msgstr "Товар вариант"
+
+#: frontend/models.py:164
+msgid "product variants"
+msgstr "Товар варианты"
+
+#: frontend/models.py:175
+msgid "product image"
+msgstr "Товар картинка"
+
+#: frontend/models.py:176
+msgid "product images"
+msgstr "Товар картинки"
+
+#: frontend/models.py:188
+msgid "profile"
+msgstr "Профиль"
+
+#: frontend/models.py:189
+msgid "profiles"
+msgstr "Профили"
+
+#: frontend/models.py:204
+msgid "date time"
+msgstr "Время"
+
+#: frontend/models.py:210
+msgid "content preview"
+msgstr "Превьюшка"
+
+#: frontend/models.py:225
+msgid "news item"
+msgstr "Новости "
+
+#: frontend/models.py:226
+msgid "news items"
+msgstr "Новости"
+
+#: frontend/models.py:234 frontend/models.py:239
+msgid "slider"
+msgstr "Сдайдер"
+
+#: frontend/models.py:235
+msgid "sliders"
+msgstr "Слайдеры"
+
+#: frontend/models.py:240 frontend/models.py:435
+msgid "url"
+msgstr ""
+
+#: frontend/models.py:248
+msgid "slider image"
+msgstr "Слайдер картика"
+
+#: frontend/models.py:249
+msgid "slider images"
+msgstr "Слайдер картинки"
+
+#: frontend/models.py:253 frontend/models.py:263
+msgid "user"
+msgstr "Пользователь"
+
+#: frontend/models.py:258
+msgid "user profile"
+msgstr "Пользователь профиль"
+
+#: frontend/models.py:259
+msgid "user profiles"
+msgstr "ПОльзователь профили"
+
+#: frontend/models.py:265 frontend/models.py:278
+msgid "name"
+msgstr "Имя"
+
+#: frontend/models.py:270 frontend/models.py:396
+msgid "session"
+msgstr "Сессия"
+
+#: frontend/models.py:273
+msgid "fast order"
+msgstr "Быстрый заказ"
+
+#: frontend/models.py:274
+msgid "fast orders"
+msgstr "Быстрые заказы"
+
+#: frontend/models.py:279
+msgid "value"
+msgstr "Значение"
+
+#: frontend/models.py:282 frontend/models.py:283
+msgid "settings"
+msgstr "Настройки"
+
+#: frontend/models.py:307
+msgid "region"
+msgstr "Регион"
+
+#: frontend/models.py:308
+msgid "distance"
+msgstr "Расстояние от МКАД"
+
+#: frontend/models.py:310
+msgid "is fixed"
+msgstr "фикс. цена"
+
+#: frontend/models.py:318 frontend/models.py:376
+msgid "city"
+msgstr "Город"
+
+#: frontend/models.py:319
+msgid "cities"
+msgstr "Города"
+
+#: frontend/models.py:331 frontend/models.py:380 frontend/views.py:383
+msgid "delivery type"
+msgstr "Способ доставки"
+
+#: frontend/models.py:332
+msgid "delivery types"
+msgstr "Способы доставки"
+
+#: frontend/models.py:344 frontend/models.py:345 frontend/models.py:381
+#: frontend/views.py:386
+msgid "delivery time"
+msgstr "Время доставки"
+
+#: frontend/models.py:351
+msgid "description"
+msgstr "Описание"
+
+#: frontend/models.py:358 frontend/models.py:373
+msgid "payment type"
+msgstr "Тип оплаты"
+
+#: frontend/models.py:359
+msgid "payment types"
+msgstr "Типы оплаты"
+
+#: frontend/models.py:365 frontend/models.py:413
+msgid "qty"
+msgstr "Кол-во"
+
+#: frontend/models.py:366 frontend/models.py:414
+msgid "sum"
+msgstr "Сумма"
+
+#: frontend/models.py:367
+msgid "delivery sum"
+msgstr "Сумма доставки"
+
+#: frontend/models.py:369 frontend/models.py:470
+msgid "discount"
+msgstr "скидка"
+
+#: frontend/models.py:371
+msgid "summary"
+msgstr "Общая сумма"
+
+#: frontend/models.py:377
+msgid "another city"
+msgstr "Другой город"
+
+#: frontend/models.py:379
+msgid "km"
+msgstr "км"
+
+#: frontend/models.py:384
+msgid "client name"
+msgstr "Имя"
+
+#: frontend/models.py:385
+msgid "client phone"
+msgstr "Телефон"
+
+#: frontend/models.py:386
+msgid "client email"
+msgstr "E-mail"
+
+#: frontend/models.py:387
+msgid "client comment"
+msgstr "Комментарий"
+
+#: frontend/models.py:391
+msgid "receiver name"
+msgstr "Имя"
+
+#: frontend/models.py:392
+msgid "receiver address"
+msgstr "Адрес"
+
+#: frontend/models.py:393
+msgid "receiver time"
+msgstr "Время доставки"
+
+#: frontend/models.py:394
+msgid "receiver comment"
+msgstr "Комментарий"
+
+#: frontend/models.py:400
+msgid "payment status"
+msgstr "статус оплаты"
+
+#: frontend/models.py:403 frontend/models.py:408
+msgid "shop order"
+msgstr "Заказ"
+
+#: frontend/models.py:404
+msgid "shop orders"
+msgstr "Заказы"
+
+#: frontend/models.py:417
+msgid "shop order item"
+msgstr "Товар заказанный"
+
+#: frontend/models.py:418
+msgid "shop order items"
+msgstr "Товары заказанные"
+
+#: frontend/models.py:422
+msgid "host"
+msgstr "хост"
+
+#: frontend/models.py:428 frontend/models.py:433
+msgid "linked site"
+msgstr "конкурент сайт"
+
+#: frontend/models.py:429
+msgid "linked sites"
+msgstr "конкурент сайты"
+
+#: frontend/models.py:439
+msgid "linked price"
+msgstr "конкурент цена"
+
+#: frontend/models.py:440
+msgid "linked prices"
+msgstr "конкурент цены"
+
+#: frontend/models.py:445
+msgid "discount sum"
+msgstr "сумма со скидкой"
+
+#: frontend/models.py:446
+msgid "discount percent"
+msgstr "скидка %"
+
+#: frontend/models.py:471
+msgid "discounts"
+msgstr "скидка"
+
+#: frontend/views.py:381
+msgid "delivery city"
+msgstr "Населенный пункт"
+
+#: frontend/views.py:629
+msgid "email"
+msgstr "E-Mail"
+
+#: frontend/views.py:630
+msgid "password old"
+msgstr "Старый пароль"
+
+#: frontend/views.py:631
+msgid "password new"
+msgstr "Новый пароль"
+
+#: frontend/views.py:632
+msgid "password new repeat"
+msgstr "Новый пароль повтор"
+
+#: frontend/views.py:645
+msgid "password new field is required."
+msgstr "Тербуется заполнение поля с новым паролем"
+
+#: frontend/views.py:648
+msgid "password new repeat field is required."
+msgstr "Требуется заполнение повтора нового пароля"
+
+#: frontend/views.py:651
+msgid "password old field is wrong."
+msgstr "Старый парольне верный"
+
+#: frontend/views.py:1059
+#, fuzzy
+msgid "percent"
+msgstr "скидка %"
+
+#: frontend/templates/frontend/view_percent_set.html:5
+#: frontend/templates/frontend/view_sitemap_gen.html:5
+msgid "Home"
+msgstr ""
+
+#: flowershop/dashboard_client.py:26
+msgid "Group: Administration & Applications"
+msgstr ""
+
+#: flowershop/dashboard_client.py:31
+msgid "Administration"
+msgstr ""
+
+#: flowershop/dashboard_client.py:37
+msgid "Applications"
+msgstr ""
+
+#: flowershop/dashboard_client.py:47
+msgid "AppList: Applications"
+msgstr ""
+
+#: flowershop/dashboard_client.py:56
+msgid "ModelList: Administration"
+msgstr ""
+
+#: flowershop/dashboard_client.py:64
+msgid "Media Management"
+msgstr ""
+
+#: flowershop/dashboard_client.py:68
+msgid "FileBrowser"
+msgstr ""
+
+#: flowershop/dashboard_client.py:77
+msgid "Support"
+msgstr ""
+
+#: flowershop/dashboard_client.py:81
+msgid "Django Documentation"
+msgstr ""
+
+#: flowershop/dashboard_client.py:86
+msgid "Grappelli Documentation"
+msgstr ""
+
+#: flowershop/dashboard_client.py:91
+msgid "Grappelli Google-Code"
+msgstr ""
+
+#: flowershop/dashboard_client.py:100
+msgid "Latest Django News"
+msgstr ""
+
+#: flowershop/dashboard_client.py:108 flowershop/dashboard_super.py:134
+msgid "Recent Actions"
+msgstr ""
+
+#: templates/filebrowser/index.html:80
+msgid "New Folder"
+msgstr ""
+
+#: templates/filebrowser/index.html:81
+msgid "Upload"
+msgstr ""

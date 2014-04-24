@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load thumbnail tags_frontend %}
+
+{% block scripts %}
+    <link rel="stylesheet" href="/static/css/view_product.css"/>
+    <link rel="stylesheet" href="/static/css/lightbox.css"/>
+    <script type="text/javascript" src="/static/js/lightbox-2.6.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            $('.product-photo').cycle({
+                speed: 600,
+                paused: true,
+                manualSpeed: 100,
+                slides: 'a',
+                fx: 'scrollHorz'
+            })
+
+            $('.product-photo-preview img').click(function () {
+                $('.product-photo').cycle('goto', $(this).data('offset'));
+            })
+
+
+            $('.product-variant').change(function () {
+                $('.product-price').html($(this).find('option:selected').data('price'));
+            })
+        })
+    </script>
+{% endblock %}
+
+{% block seo_title %}{{ product.seo_title }}{% endblock %}
+{% block seo_keywords %}{{ product.seo_keywords }}{% endblock %}
+{% block seo_description %}{{ product.seo_description }}{% endblock %}
+
+{% block content_main %}
+    <div class="product">
+        <div class="product-photo-cnt" style="width: 310px;float: left;">
+            <div class="product-photo">
+                {% for image in product.product_images_get %}
+                    {% thumbnail image.image '800x600' watermark_pos="center" as imb %}
+                        <a href="{{ imb.url }}" data-lightbox="big-img" class="product-image">
+                        {% thumbnail image.image '296x296' crop="center" watermark_pos="center" as im %}
+                            <img src="{{ im.url }}">
+                        {% endthumbnail %}
+                    {% endthumbnail %}
+
+                </a>
+                {% endfor %}
+
+            </div>
+            <div class="product-photo-preview top-m-8" style="width: 310px;">
+                {% for image in product.product_images_get %}
+                    {% thumbnail image.image '96x96' crop='center' as im %}
+                        <img style="cursor: pointer;" src="{{ im.url }}" data-offset="{{ forloop.counter0 }}">
+                    {% endthumbnail %}
+
+                {% endfor %}
+            </div>
+            <div class="share">
+                <script type="text/javascript" src="//yandex.st/share/share.js"
+                        charset="utf-8"></script>
+                <div class="yashare-auto-init" data-yashareL10n="ru"
+                     data-yashareType="none"
+                     data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir,lj,gplus"
+
+                        ></div>
+
+
+            </div>
+            <div class="clearfix"></div>
+
+
+        </div>
+        <div class="product-data" style="width: 100%;float: right;margin-right: -310px;">
+            <h1 class="product-title title">{{ product.title }}</h1>
+
+            <div class="product-art color-green">Артикул:{{ product.art }}</div>
+            <div class="product-content">{{ product.content|safe }}</div>
+            {% if object.product_variants_get.count %}
+                <div>
+                    <div><b>Варианты:</b></div>
+                    <div style="margin-bottom: 40px;">
+                        <select class="product-variant" name="product_variant">
+                            <option value="0" data-price="{{ product.price|price }} р.">---</option>
+                            {% for item in  object.product_variants_get %}
+                                <option value="{{ item.pk }}" data-price="{{ item.price|price }} р.">{{ item.title }}
+                                    - {{ item.price_get|price }} р.
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="clear"></div>
+            <div class="product-price">{{ product.price|price }} р.</div>
+            {% if product.price_old > 0 %}
+                <div class="product-price-old">{{ product.price_old|price }} р.</div>
+            {% endif %}
+            <div class="clear" style="margin-top: 10px;"></div>
+
+            <a class="btn-basket btn" data-pk="{{ product.pk }}" href="javascript:void(0);">
+                <div class="ico-btn"></div>
+                В корзину</a>
+
+            <a class="btn-fast-order btn" data-pk="{{ product.pk }}" href="javascript:void(0);">
+                <div class="ico-btn"></div>
+                Быстрый заказ</a>
+
+            <div class="clearfix"></div>
+
+
+        </div>
+
+        <div class="clearfix"></div>
+
+
+    </div>
+{% endblock %}
+{% block content_bottom %}
+
+    {% if product.product_related_get|length %}
+        <div class="title-buy-with">Вместе с этим товаром покупают</div>
+        {% for product in product.product_related_get %}
+            {% include 'frontend/inc_product_item.html' %}
+        {% endfor %}
+    {% endif %}
+    <div class="clearfix"></div>
+{% endblock %}

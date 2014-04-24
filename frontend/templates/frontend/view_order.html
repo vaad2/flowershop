@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load tags_frontend %}
+{% block content_main %}
+    <div class="h1-title">Заказ №{{ order.pk }} от {{ order.since|date:'d.m.Y H:i' }}</div>
+    <table class="tbl tbl-order">
+        <tr>
+            <th class="tc-title">Название</th>
+            <th>Количество</th>
+            <th>В сумме</th>
+        </tr>
+        {% for oi in object_list %}
+            <tr>
+                <td class="tc-title">{{ oi.product.title }}</td>
+                <td class="tc-qty">{{ oi.qty }}</td>
+                <td class="tc-sum">{{ oi.sum|price }} р</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="hr"></div>
+    <div class="order-summary color-orange">
+        <div style="padding-right: 20px;">{{ order.summary|price }} р.</div>
+    </div>
+
+    <div class="info-delivery">
+        <div class="color-green text-small bottom-m-8">Доставка</div>
+        <div class="text-small color-orange">
+            {% if order.city_id == 3 %}{{ order.another_city }}, {{ order.distance }} км. от МКАД {% else %}
+                {{ order.city }}{% endif %}<br/>
+            {{ order.delivery_type.title }} {{ order.delivery_time.title }}
+        </div>
+    </div>
+    <div class="bottom-m-8"></div>
+
+    <div class="info-receiver">
+        <div class="color-green text-small bottom-m-8">Заказчик</div>
+        <div class="text-small color-orange">
+            {{ order.client_name }}
+            <div>{{ order.client_phone }}</div>
+            <div>{{ order.client_email }}</div>
+            <div>{{ order.client_comment }}</div>
+
+        </div>
+        <div class="color-green text-small bottom-m-8 top-m-8">Получатель</div>
+        <div class="text-small color-orange">
+            {{ order.receiver_name }}
+            <div>{{ order.receiver_address }}</div>
+            <div>{{ order.receiver_date_time|default:'' }}</div>
+            <div>{{ order.receiver_comment }}</div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

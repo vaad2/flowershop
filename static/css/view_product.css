@@ -1,0 +1,129 @@
+.product {
+    width: 100%;
+    /*margin: auto;*/
+}
+
+.product-photo-cnt {
+    /*width: 320px;*/
+    /*margin-left: -100%;*/
+    /*padding-right: 20px;*/
+}
+
+.product-photo img {
+    /*border: 1px solid #ccc;*/
+    margin: 1px;
+}
+
+.product-photo {
+    border: 1px solid #ccc;
+    /*margin: 2px;*/
+    width: 298px;
+    height: 298px;
+}
+
+.product-art {
+    font-size: 14px;
+}
+
+.product-content {
+    color: #705D25;
+    font-size: 14px;
+}
+
+.product-data {
+
+}
+
+.product-price {
+    display: block;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 16px;
+    /*padding: 4px 16px;*/
+    background: none repeat scroll 0 0 #008F46;
+    font-weight: bold;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    min-width: 80px;
+    text-shadow: 1px 0 #999;
+}
+
+.product-price-old {
+    display: block;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 12px;
+    padding: 0px 16px;
+    color: #fff;
+    font-size: 24px;
+    background: #008f46;
+    text-decoration: line-through;
+    text-align: center;
+    min-width: 80px;
+}
+
+.product-consist-title {
+    margin: 16px 0 0;
+}
+
+.product-consist-content {
+    color: #705D25;
+    font-size: 14px;
+}
+
+.product-data .btn-basket, .product-data .btn-fast-order {
+    background: #ff7e00;
+    border: 1px solid #ff7e00;
+    padding: 3px 10px 2px 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    display: block;
+    text-indent: 10px;
+    float: left;
+    margin-right: 10px;
+}
+
+.ico-btn {
+
+    height: 24px;
+    border-radius: 50%;
+    width: 24px;
+    float: left;
+    display: block;
+}
+
+.product-data .btn-basket .ico-btn {
+    background: #fff url("/static/img/ico-basket-orange.png") 50% 50% no-repeat;
+}
+
+.product-data .btn-fast-order {
+
+    background: #fff;
+    color: #ff7e00;
+    /*text-indent: 30px;*/
+
+}
+
+.product-data .btn-fast-order .ico-btn {
+    background: #ff7e00 url("/static/img/ico-phone-white.png") 50% 50% no-repeat;
+}
+
+.title-buy-with {
+    margin-top: 30px;
+    background: url("/static/img/ico-cross.png") 0% 50% no-repeat;
+    text-indent: 28px;
+    color: #f7941d;
+    font-size: 24px;
+    padding: 10px;
+}
+
+.product-image {
+    /*display: block;*/
+    /*width: 300px;*/
+    /*height: 300px;*/
+    /*border: 1px solid #ccc;*/
+}

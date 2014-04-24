@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}<h1 class="title">{{ object.title }}</h1>{% endblock %}
+{% block content_main %}
+    <div class="news-date color-orange">{{ object.date_time|date:'d.m.Y' }}</div>
+    <div class="news-content">
+        {% thumbnail object.img '320x200' as im %}
+            <img class="news-img" src="{{ im.url }}" title="{{ object.title }}">
+        {% endthumbnail %}
+        {{ object.content|safe }}
+    </div>
+{% endblock %}

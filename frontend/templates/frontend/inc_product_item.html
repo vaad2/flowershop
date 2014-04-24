@@ -1,0 +1,25 @@
+{% load thumbnail tags_frontend %}
+<div class="product-list-item">
+
+    <a href="{{ product.url_get }}" class="sub-item slides">
+        {% for img in product.images %}
+            {% thumbnail img.image '200x200' as im %}
+                <img src="{{ im.url }}"/>
+            {% endthumbnail %}
+        {% endfor %}
+    </a>
+    <h4 class="item-title">{{ product.title }}</h4>
+
+    <div class="tools">
+        <a href="{{ product.url_get }}" class="btn btn-details">Подробнее</a>
+        <a href="javascript:void(0);" data-pk="{{ product.pk }}" class="cart btn-basket"></a>
+    </div>
+    <div class="flags">
+
+        <div class="flag flag-orange">
+            <div class="flag-title">{{ product.price|price }} р.</div>
+        </div>
+
+    </div>
+
+</div>

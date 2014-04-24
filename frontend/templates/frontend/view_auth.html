@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript">
+        function handle_auth(result) {
+            if (result['success']) {
+                if (result['data'] === true) {
+                    document.location.assign('{% url 'frontend:view_cabinet' %}');
+                }
+                else {
+                    $('.form-auth').html(result['data']);
+                    $('.btn-send-auth').click(function () {
+                        post(g_urls['view_link']['frontend:ViewAuth'], $('.form-auth').serialize(), handle_auth);
+                        return false;
+                    });
+                }
+            }
+        }
+
+        function handle_register(result) {
+            if (result['success']) {
+                if (result['data'] === true) {
+                    document.location.assign('{% url 'frontend:view_cabinet' %}');
+                } else {
+                    $('.form-register').html(result['data']);
+                    $('.btn-send-register').click(function () {
+                        post(g_urls['view_link']['frontend:ViewRegister'], $('.form-register').serialize(), handle_register);
+                        return false;
+                    });
+                }
+
+            }
+        }
+
+        $(function () {
+            $.get(g_urls['view_link']['frontend:ViewAuth'], handle_auth);
+            $.get(g_urls['view_link']['frontend:ViewRegister'], handle_register);
+        });
+    </script>
+{% endblock %}
+{% block content_main %}
+    {% include 'frontend/inc_breadcrumbs.html' %}
+    <div class="h1-title">Войти</div>
+    <div class="text top-m-16">
+        Чтобы войти в личный кабинет, необходимо ввести ваш email, который вы указывали при регистрации, и пароль.
+        Если вы забыли пароль, его можно восстановить, для этого введите ваш email, который вы указывали при
+        регистрации, и нажмите на “Восстановить пароль”
+
+    </div>
+
+    <form class="form form-auth"></form>
+
+
+    <div class="h1-title top-m-16">Регистрация</div>
+    <form class="form form-register"></form>
+
+{% endblock %}
