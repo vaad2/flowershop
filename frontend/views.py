@@ -1086,3 +1086,7 @@ class ViewPercentSet(MixinBase, FormView):
         context['success_url'] = self.get_success_url()
 
         return context
+
+
+class ViewRegister(MixinBase, TemplateView):
+    pass
